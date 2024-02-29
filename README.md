@@ -1,4 +1,4 @@
-#VisionOS
+# VisionOS
 Research and exploration of basic visionOS capabilities.
 
 - Feature 1 involves displaying 3D models in the usdz format in the volumetric windowGroup space.
