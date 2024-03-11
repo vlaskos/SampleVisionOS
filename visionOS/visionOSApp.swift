@@ -28,12 +28,12 @@ struct visionOSApp: App {
         .windowStyle(.volumetric)
         .defaultSize(width: 2, height: 1, depth: 1, in: .meters)
 
-        ImmersiveSpace(id: "Environment") {
-            EnvironmentRV()
-        }.immersionStyle(selection: $immersionStyle, in: .full)
-
         ImmersiveSpace(id: "VideoPlayer360") {
             Video360EntityTestRV()
+        }.immersionStyle(selection: $immersionStyle, in: .full)
+
+        ImmersiveSpace(id: "ImmersivePhoto") {
+            ImmersivePhoto()
         }.immersionStyle(selection: $immersionStyle, in: .full)
     }
 }

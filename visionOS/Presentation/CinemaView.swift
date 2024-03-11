@@ -9,26 +9,26 @@ import SwiftUI
 import AVKit
 
 struct CinemaView: View {
-    
-    @State var player = AVPlayer(url: Bundle.main.url(forResource: "BigBuckBunny", withExtension: "mp4")!)
 
     @Environment(\.openImmersiveSpace) private var openImmersiveSpace
     @Environment(\.dismissImmersiveSpace) private var dismissImmersiveSpace
-    @State private var immersiveSpaceActive: Bool = false
+    @State private var isActiveEmmersive = false
+
+    @State var player = AVPlayer(url: Bundle.main.url(forResource: "BigBuckBunny", withExtension: "mp4")!)
 
     var body: some View {
         VStack {
             VideoPlayer(player: player)
                 .padding(20)
 
-            Button(immersiveSpaceActive ? "Exit Environment" : "View Environment") {
+            Button(isActiveEmmersive ? "Exit emmersive" : "Open emmersive") {
                 Task {
-                    if !immersiveSpaceActive {
-                        _ = await openImmersiveSpace(id: "Environment")
-                        immersiveSpaceActive = true
+                    if !isActiveEmmersive {
+                        let _ = await openImmersiveSpace(id: "ImmersivePhoto")
+                        isActiveEmmersive = true
                     } else {
                         await dismissImmersiveSpace()
-                        immersiveSpaceActive = false
+                        isActiveEmmersive = false
                     }
                 }
             }
@@ -37,9 +37,9 @@ struct CinemaView: View {
         .onDisappear(perform: {
             Task {
                 player.pause()
-                if immersiveSpaceActive {
+                if isActiveEmmersive {
                     await dismissImmersiveSpace()
-                    immersiveSpaceActive = false
+                    isActiveEmmersive = false
                 }
             }
         })

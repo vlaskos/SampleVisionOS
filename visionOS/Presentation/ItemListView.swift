@@ -25,7 +25,15 @@ struct ItemListView: View {
 
             ItemDetail(title: "Custom",
                        imageName: "sog") {
-                model.currentModel = .custom
+                model.currentModel = .sog
+                openWindow(id: "Item")
+            }.onDisappear {
+                model.currentModel = .none
+            }
+
+            ItemDetail(title: "Sprut",
+                       imageName: "") {
+                model.currentModel = .sprut
                 openWindow(id: "Item")
             }.onDisappear {
                 model.currentModel = .none
